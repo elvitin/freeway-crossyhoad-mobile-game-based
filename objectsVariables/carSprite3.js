@@ -1,6 +1,6 @@
 let carSprite3;
 
-const yCar3 = lanes[4];
+let yCar3 = lanes[5];
 const car3Width = 50;
 const car3Height = 40;
 
