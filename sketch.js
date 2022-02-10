@@ -61,6 +61,45 @@ const drawPig = () => {
   image(pigSprite, xPigPos, yPigPos, pigWidth, pigHeight);
 };
 
+
+
+let flag = false;
+let time = 20;
+let discounter = 3;
+function keyPressed() {
+  if (keyCode === UP_ARROW) {
+    flag = true;
+    
+    // yPigPos += -50;
+  }
+}
+
+function pigMov()
+{
+  if (!flag)
+    return;
+
+  if(time)
+  {
+    if (time <= 10)
+    {
+      discounter = -2;
+      console.log('qnts vezes');
+    }
+
+    pigHeight += discounter;
+    pigWidth += discounter;
+    yPigPos += -2;
+    time--;
+    
+  }
+  else {
+    flag = false;
+    time = 20;
+    discounter = 2;
+  }
+}
+
 const movePig = () => {
 
   if (keyIsDown(UP_ARROW))
@@ -80,6 +119,7 @@ function draw() {
   background(backdrop);
   drawPig();
   drawCars();
-  movePig();
+  // movePig();
+  pigMov();
   moveCars();
 };

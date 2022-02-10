@@ -6,5 +6,5 @@ let yPigPos = 365;
 let xPigSpeed = 10;
 let yPigSpeed = 10;
 
-const pigWidth = 30;
-const pigHeight = 30;
+let pigWidth = 30;
+let pigHeight = 30;
