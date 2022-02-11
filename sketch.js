@@ -2,18 +2,24 @@ let _width = window.innerWidth - 100;
 const _height = 400;
 
 let backdrop;
-
-
+let mainThemeSound;
 function preload() {
+
+
   backdrop = loadImage("assets//sprites//estrada.png");
-  pigSprite = loadImage("assets//sprites//ator-1.png");
+  pigSprite = loadImage("assets//sprites//frog.png");
   carSprite1 = loadImage("assets//sprites//carro-1.png");
   carSprite2 = loadImage("assets//sprites//carro-2.png");
   carSprite3 = loadImage("assets//sprites//carro-3_right.png");
+
+  frogSound = loadSound('assets//Sounds//frog.ogg');
+  mainThemeSound = loadSound('assets//Sounds//Video_Game.ogg');
 }
 
 function setup() {
   createCanvas(_width, _height);
+  mainThemeSound.setVolume(0.3);
+  // mainThemeSound.loop();
 }
 
 function windowResized() {
@@ -29,7 +35,7 @@ const drawCars = () => {
 
 function getRandomArbitrary(min, max) {
   return Math.round(Math.random() * (max - min) + min);
-};
+}
 
 const moveCars = () => {
   xCar1 += xCar1Speed;
@@ -38,7 +44,7 @@ const moveCars = () => {
 
     do {
       yCar1 = lanes[getRandomArbitrary(0, 2)];
-    } while(yCar1 == yCar2);
+    } while (yCar1 == yCar2);
   }
 
   xCar2 += xCar2Speed;
@@ -47,7 +53,7 @@ const moveCars = () => {
 
     do {
       yCar2 = lanes[getRandomArbitrary(0, 2)];
-    } while(yCar1 == yCar2);
+    } while (yCar1 == yCar2);
   }
 
   xCar3 += xCar3Speed;
@@ -58,68 +64,21 @@ const moveCars = () => {
 };
 
 const drawPig = () => {
+  imageMode(CENTER);
   image(pigSprite, xPigPos, yPigPos, pigWidth, pigHeight);
+  imageMode(CORNER);
 };
 
 
-
-let flag = false;
-let time = 20;
-let discounter = 3;
-function keyPressed() {
-  if (keyCode === UP_ARROW) {
-    flag = true;
-    
-    // yPigPos += -50;
-  }
-}
-
-function pigMov()
-{
-  if (!flag)
-    return;
-
-  if(time)
-  {
-    if (time <= 10)
-    {
-      discounter = -2;
-      console.log('qnts vezes');
-    }
-
-    pigHeight += discounter;
-    pigWidth += discounter;
-    yPigPos += -2;
-    time--;
-    
-  }
-  else {
-    flag = false;
-    time = 20;
-    discounter = 2;
-  }
-}
-
-const movePig = () => {
-
-  if (keyIsDown(UP_ARROW))
-    yPigPos += -yPigSpeed;
-
-  if (keyIsDown(DOWN_ARROW))
-    yPigPos += yPigSpeed;
-
-  if (keyIsDown(LEFT_ARROW))
-    xPigPos += -xPigSpeed;
-
-  if (keyIsDown(RIGHT_ARROW))
-    xPigPos += xPigSpeed;
-}
 
 function draw() {
   background(backdrop);
   drawPig();
   drawCars();
   // movePig();
-  pigMov();
+  frogJump();
+  checkCollideFrog();
   moveCars();
-};
+}
+
+
